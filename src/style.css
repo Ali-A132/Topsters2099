@@ -1,0 +1,381 @@
+:root {
+    --sidebar-width: 310px;
+    --chart-scale: scale(1.33);
+    font-family: "Courier Prime", "Courier New", Courier, monospace;
+}
+
+body {
+    background-image: url('/src/assets/backgroundImage.jpg'); 
+    margin: 0;
+    font-size: 13px;
+
+    color: #fff;
+    text-color: #fff;
+}
+
+a:link {
+  color: #fff;
+}
+
+a:visited {
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: blue;
+  color: white;
+}
+
+/* ---------- top-right download buttons ---------- */
+#buttons {
+    position: fixed;
+    top: 8px;
+    right: 10px;
+    font-size: .85em;
+    z-index: 3;
+}
+
+/* ---------- layout: fixed left column + chart ---------- */
+#page {
+    display: flex;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+#fixed {
+    flex: 0 0 var(--sidebar-width);
+}
+
+#fixed-inner {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    box-sizing: border-box;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+#customizations-container,
+#search-container {
+    flex: none;
+}
+
+#customizations {
+    padding-bottom: 6px;
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 0;
+}
+
+#search-container > div {
+    display: flex;
+    align-items: center;
+}
+
+#new-search-container {
+    flex: 1;
+}
+
+#search-bar {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+/* results area scrolls on its own */
+#grow {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    margin-top: 8px;
+}
+
+/* ---------- chart ---------- */
+#chart-wrapper {
+    display: flex;
+    align-items: flex-start;
+    width: max-content;
+    margin: 35px 5px 50px;
+    transform-origin: top left;
+    transform: scale(var(--chart-scale, 1));
+    border: 1px solid #999;
+    padding: 25px;
+}
+
+#chart {
+    flex: none;
+}
+
+.colour-input {
+    width: 20px;
+    height: 15px;
+    padding: 0;
+    top: 6px;
+}
+
+/* ---------- cards ---------- */
+.card-row {
+    text-align: justify;
+    text-align-last: justify; /* justify even the last (only) line */
+}
+
+.zero {
+    font-size: 0; /* takes no space, but still gives justify something to stretch */
+}
+
+.card {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: content-box;
+    padding: 2px;
+}
+
+.card[draggable="true"] { 
+  cursor: grab;
+ }
+
+ .card:active { 
+  cursor: -moz-grabbing;
+ }
+
+/* bigger rows get the extra 6px at the bottom (matches the original inline padding) */
+.size-150 .card,
+.size-125 .card {
+    padding: 2px 2px 6px;
+}
+
+.inner {
+    background: #ffffff center / cover no-repeat; /* (guess) empty-slot colour */
+}
+
+.size-150 .inner { width: 150px; height: 150px; }
+.size-125 .inner { width: 125px; height: 125px; }
+.size-75 .inner { width: 75px; height: 75px; }
+
+/* ---------- titles list ---------- */
+#titles {
+    display: none;
+    margin: 0 0 0 16px;
+    padding: 0;
+    list-style: none;
+    color: #fff;
+    font-size: 1.1em;
+    line-height: 12px;
+}
+
+#titles.show { display: block; }
+#titles.numbered { list-style: decimal; padding-left: 2.3em; }
+
+/* two covers per row */
+.sr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 125px);
+    gap: 6px;
+}
+
+.sr-item {
+    cursor: grab;
+    font-size: 10px;
+    line-height: 1.2;
+}
+
+.sr-img,
+.sr-erase {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.sr-img {
+    object-fit: cover;
+    background: #ddd;
+}
+
+.sr-caption {
+    margin-top: 2px;
+    overflow-wrap: anywhere;
+}
+
+/* the "transparent" checkerboard tile that erases a slot */
+.sr-erase {
+    background-color: #fff;
+    background-image:
+        linear-gradient(45deg, #c8c8c8 25%, transparent 25%, transparent 75%, #c8c8c8 75%),
+        linear-gradient(45deg, #c8c8c8 25%, transparent 25%, transparent 75%, #c8c8c8 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+}
+
+/*
+  Phone / touch support. 
+*/
+
+/* ---- always hidden on desktop ---- */
+#menu-button,
+#menu-close,
+#menu-backdrop {
+    display: none;
+}
+
+/* ---- touch dragging (any touch-first device, any width) ---- */
+
+/* the copy of the card that follows your finger */
+#drag-float {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 60;
+    pointer-events: none;
+    background: #222 center / cover no-repeat;
+    opacity: 0.85;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* appears while dragging: drop a card here to erase its slot */
+#trash {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    height: 56px;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 2px dashed #888;
+    color: #000;
+    font-weight: bold;
+    background-color: #fff;
+    background-image:
+        linear-gradient(45deg, #c8c8c8 25%, transparent 25%, transparent 75%, #c8c8c8 75%),
+        linear-gradient(45deg, #c8c8c8 25%, transparent 25%, transparent 75%, #c8c8c8 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 8px 8px;
+}
+#trash.over {
+    border-color: #e63946;
+    outline: 3px solid #e63946;
+}
+
+#toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 70;
+    padding: 8px 14px;
+    border-radius: 6px;
+    background: #fff;
+    color: #000;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+@media (pointer: coarse) {
+    .card {
+        touch-action: none; /* the finger drags the card instead of scrolling the page */
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+    }
+}
+
+/* ---- phone layout: chart in the middle, everything else in a slide-in menu ---- */
+@media (max-width: 1200px) {
+    #page #fixed {
+        flex: 0 0 0;
+        width: 0;
+    }
+
+    #page #fixed-inner {
+        z-index: 30;
+        width: min(88vw, 340px);
+        padding: 12px;
+        padding-top: calc(12px + env(safe-area-inset-top, 0px));
+        background: rgba(0, 0, 0, 0.95);
+        border-right: 1px solid #555;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        transform: translateX(-102%);
+        transition: transform 0.2s ease;
+    }
+    #page #fixed.open #fixed-inner {
+        transform: none;
+    }
+
+    /* the whole drawer scrolls as one piece, results included */
+    #page #grow {
+        flex: none;
+        overflow: visible;
+    }
+
+    #menu-button {
+        display: block;
+        position: fixed;
+        top: calc(8px + env(safe-area-inset-top, 0px));
+        left: 8px;
+        z-index: 10;
+        padding: 4px 12px;
+        font-size: 22px;
+        line-height: 1.2;
+    }
+    #menu-close {
+        display: block;
+        margin: 0 0 8px auto;
+    }
+    #menu-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 25;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    #buttons {
+        top: calc(8px + env(safe-area-inset-top, 0px));
+        right: 8px;
+    }
+
+    /* room for the buttons above the chart, and less dead space around it */
+    #page #chart-wrapper {
+        margin: calc(52px + env(safe-area-inset-top, 0px)) 6px calc(16px - var(--fit-shrink, 0px));
+        padding: 10px;
+    }
+
+    body #page {
+        flex-direction: column;
+    }
+    #titles-box {
+        align-self: stretch;
+        margin: 0 6px 24px;
+        padding: 12px;
+        box-sizing: border-box;
+        border: 1px solid #999;
+        color: #fff;
+    }
+    #titles-box #titles {
+        margin: 0;
+    }
+    #titles-box #titles li {
+        white-space: nowrap; /* one line per title (long ones are cut off here, but not in the download) */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* iOS zooms the whole page when a field smaller than 16px gets focus */
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+    button {
+        min-height: 34px;
+    }
+}
