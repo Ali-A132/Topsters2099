@@ -24,23 +24,13 @@ An album chart maker that is a replica of the now defunct Topsters 2 (never-endi
 You need Node.js 18 or newer and a free [Last.fm API key](https://www.last.fm/api/account/create) and create a .env file.
 
 ```bash
-# Clone the repository
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO.git
-
-# Navigate to the project directory
-cd YOUR-REPO
-
-# Install dependencies
 npm install
 
 # Start the dev server
 npm run dev
 
-# Type-check and build for production (output goes to dist/)
+# Build for production
 npm run build
-
-# Preview the production build locally
-npm run preview
 ```
 
 ## Credits
