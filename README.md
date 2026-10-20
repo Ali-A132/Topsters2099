@@ -17,7 +17,7 @@ An album chart maker that is a replica of the now defunct Topsters 2 (never-endi
 ## Tech Stack
 * **Language:** TypeScript
 * **Frameworks/Libraries:** React, Vite
-* **APIs and services:** Last.fm API, Firebase Hosting and Firebase Analytics
+* **APIs and services:** Last.fm API, Vercel Hosting and Vercel Analytics
 
 ## Installation
 
