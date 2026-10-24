@@ -2,11 +2,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Chart from './components/Chart';
 import Customizations from './components/Customizations';
 import SearchPanel from './components/SearchPanel';
+import { withDefaultCharts } from './scripts/defaultCharts';
 import { createChart, nextChartName, uniqueName } from './scripts/defaults';
 import { downloadBlob } from './scripts/download';
 import { resolveDroppedImage } from './scripts/externalImage';
 import type { DropPayload } from './scripts/externalImage';
-import { exportChartAsJpg } from './scripts/exportChart';
+import { exportChart } from './scripts/exportChart';
+import type { ExportFormat } from './scripts/exportChart';
 import { getLayout, slotCount } from './scripts/layouts';
 import { loadState, makeBackup, parseBackup, saveState } from './scripts/storage';
 import type { SavedState } from './scripts/storage';
@@ -21,7 +23,7 @@ function initialState(): SavedState {
 }
 
 export default function App() {
-    const [state, setState] = useState<SavedState>(() => loadState() ?? initialState());
+    const [state, setState] = useState<SavedState>(() => withDefaultCharts(loadState() ?? initialState()));
     const [showOptions, setShowOptions] = useState(false);
     const [exporting, setExporting] = useState(false);
     const [saveFailed, setSaveFailed] = useState(false);
@@ -53,7 +55,7 @@ export default function App() {
         const carriesImage = (e: DragEvent) =>
             !!e.dataTransfer && ['Files', 'text/uri-list'].some((t) => e.dataTransfer!.types.includes(t));
         const onDragOver = (e: DragEvent) => {
-            if (e.defaultPrevented || !carriesImage(e)) return;
+            if (e.defaultPrevented || !carriesImage(e)) return; 
             e.preventDefault();
             e.dataTransfer!.dropEffect = 'none';
         };
@@ -143,7 +145,7 @@ export default function App() {
     const newChart = () =>
         setState((s) => {
             const chart = createChart(nextChartName(s.charts));
-            return { charts: [...s.charts, chart], activeId: chart.id };
+            return { ...s, charts: [...s.charts, chart], activeId: chart.id };
         });
 
     const renameChart = (name: string) => updateActive((c) => ({ ...c, name }));
@@ -152,8 +154,8 @@ export default function App() {
         setState((s) => {
             const i = s.charts.findIndex((c) => c.id === s.activeId);
             const rest = s.charts.filter((c) => c.id !== s.activeId);
-            if (!rest.length) return initialState(); 
-            return { charts: rest, activeId: rest[Math.min(i, rest.length - 1)].id };
+            if (!rest.length) return { ...initialState(), seeded: s.seeded };
+            return { ...s, charts: rest, activeId: rest[Math.min(i, rest.length - 1)].id };
         });
 
     const backup = () => {
@@ -180,18 +182,18 @@ export default function App() {
             const added = incoming.map((c) => {
                 const name = uniqueName(c.name, taken);
                 taken.add(name);
-                return { ...c, id: newId(), name }; 
+                return { ...c, id: newId(), name };
             });
-            return { charts: [...s.charts, ...added], activeId: added[0].id };
+            return { ...s, charts: [...s.charts, ...added], activeId: added[0].id };
         });
     };
 
-    const downloadJpg = async () => {
+    const download = async (format: ExportFormat) => {
         const wrapper = document.getElementById('chart-wrapper');
         if (!wrapper) return;
         setExporting(true);
         try {
-            await exportChartAsJpg(wrapper, active.name);
+            await exportChart(wrapper, active.name, format);
         } catch (err) {
             window.alert((err as Error).message);
         } finally {
@@ -217,8 +219,11 @@ export default function App() {
                         Couldn&apos;t autosave (browser storage is full). Use Back up to keep your charts.
                     </span>
                 )}
-                <button type="button" onClick={downloadJpg} disabled={exporting}>
+                <button type="button" onClick={() => download('jpg')} disabled={exporting}>
                     Download JPG
+                </button>{' '}
+                <button type="button" onClick={() => download('png')} disabled={exporting}>
+                    Download PNG
                 </button>
             </div>
             <div id="page">

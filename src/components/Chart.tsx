@@ -14,34 +14,35 @@ interface Props {
     layout: Layout;
     slots: Slot[];
     options: ChartOptions;
-    onMove: (from: number, to: number) => void;
-    onPlace: (index: number, album: AlbumData | null) => void;
-    onPlaceExternal: (index: number, payload: DropPayload) => void;
-    onRenameAlbum: (id: string, title: string) => void;
+    onMove: (from: number, to: number) => void; 
+    onPlace: (index: number, album: AlbumData | null) => void; 
+    onPlaceExternal: (index: number, payload: DropPayload) => void; 
+    onRenameAlbum: (id: string, title: string) => void; 
 }
 
 interface DragState {
-    from: number; 
-    over: number;
+    from: number;
+    over: number; 
 }
 
 interface CardProps {
     slot: Slot;
     size: number; 
     pad: number; 
+    even: boolean;
     index: number; 
     touch: boolean; 
     onPointerDown: (e: ReactPointerEvent<HTMLElement>) => void;
     ghost?: boolean; 
     hidden?: boolean; 
-    target?: boolean; 
+    target?: boolean;
     onDragStart: (e: DragEvent) => void;
     onDragOver: (e: DragEvent) => void;
     onDragEnd: (e: DragEvent) => void;
 }
 
-function Card({ slot, size, pad, index, touch, ghost, hidden, target, ...handlers }: CardProps) {
-    const bottomExtra = size >= 125 ? Math.min(4, pad * 2) : 0;
+function Card({ slot, size, pad, even, index, touch, ghost, hidden, target, ...handlers }: CardProps) {
+    const bottomExtra = !even && size >= 125 ? Math.min(4, pad * 2) : 0;
     const padding = `${pad}px ${pad}px ${pad + bottomExtra}px`;
     const style = hidden
         ? { display: 'none' }
@@ -67,7 +68,7 @@ function Card({ slot, size, pad, index, touch, ghost, hidden, target, ...handler
 
 const TITLE_LINE_MAX = 14;
 const TITLE_FONT_RATIO = 15 / 14;
-const SECTION_GAP_LINES = 1.5;
+const SECTION_GAP_LINES = 1.5; 
 
 export default function Chart({ layout, slots, options, onMove, onPlace, onPlaceExternal, onRenameAlbum }: Props) {
     const fromRef = useRef<number | null>(null);
@@ -76,16 +77,16 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
     const [editingId, setEditingId] = useState<string | null>(null);
 
     const touchMode = useMediaQuery('(pointer: coarse)');
-    const isMobile = useMediaQuery('(max-width: 800px)'); 
+    const isMobile = useMediaQuery('(max-width: 800px)');
     const pointer = useRef<{
         from: number; 
         over: number; 
         id: number; 
         x0: number;
         y0: number;
-        w: number; 
+        w: number;
         h: number;
-        active: boolean;
+        active: boolean; 
     } | null>(null);
     const [float, setFloat] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
     const floatRef = useRef<HTMLDivElement>(null); 
@@ -191,7 +192,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
         onDragStart: (e: DragEvent) => {
             fromRef.current = index;
             e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData(SLOT_MIME, String(index));
+            e.dataTransfer.setData(SLOT_MIME, String(index)); 
             setTimeout(() => setDrag({ from: index, over: index }), 0);
         },
         onDragOver: (e: DragEvent) => {
@@ -201,7 +202,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                 setTarget(index);
             }
         },
-        onDragEnd: reset,
+        onDragEnd: reset, 
     });
 
     let start = 0;
@@ -237,7 +238,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                 fontSize: `${titleLine * TITLE_FONT_RATIO}px`,
                 listStyle: 'none',
                 paddingLeft: 0,
-                whiteSpace: 'nowrap',
+                whiteSpace: 'nowrap', 
             }}
         >
             {entries.map(({ s, newSection }, idx) => {
@@ -264,7 +265,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                                 onKeyDown={(e) => {
                                     if (e.key === 'Enter' || e.key === 'Escape') e.currentTarget.blur();
                                 }}
-                                onBlur={() => setEditingId(null)}
+                                onBlur={() => setEditingId(null)} 
                                 style={{
                                     font: 'inherit',
                                     color: 'inherit',
@@ -311,8 +312,8 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                     style={{ width: 'max-content' }}
                     onDragOver={(e) => {
                         const external = fromRef.current === null && isExternalDrag(e);
-                        if (fromRef.current === null && !external) return; 
-                        e.preventDefault(); 
+                        if (fromRef.current === null && !external) return;
+                        e.preventDefault();
                         const types = e.dataTransfer.types;
                         if (fromRef.current !== null) e.dataTransfer.dropEffect = 'move';
                         else if (types.includes(ALBUM_MIME) || types.includes(ERASE_MIME)) e.dataTransfer.dropEffect = 'copy';
@@ -355,6 +356,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                                     slot={slot}
                                     size={row.size}
                                     pad={options.padding}
+                                    even={!!layout.uniformGaps}
                                     index={index}
                                     touch={touchMode}
                                     ghost={ghost}
@@ -372,6 +374,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                                     slot={source}
                                     size={row.size}
                                     pad={options.padding}
+                                    even={!!layout.uniformGaps}
                                     index={drag.from}
                                     touch={touchMode}
                                     hidden

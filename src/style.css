@@ -101,7 +101,7 @@ a:visited {
     display: flex;
     align-items: flex-start;
     width: max-content;
-    margin: 35px 5px 50px;
+    margin: 45px 5px 50px;
     transform-origin: top left;
     transform: scale(var(--chart-scale, 1));
     border: 1px solid #999;
@@ -147,7 +147,7 @@ a:visited {
 /* bigger rows get the extra 6px at the bottom (matches the original inline padding) */
 .size-150 .card,
 .size-125 .card {
-    padding: 2px 2px 6px;
+    padding: 2px;
 }
 
 .inner {

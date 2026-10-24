@@ -1,0 +1,376 @@
+{
+  "app": "topsters-clone",
+  "version": 2,
+  "exportedAt": "2026-10-22T22:28:48.988Z",
+  "charts": [
+    {
+      "id": "3b7f0e81-d969-4063-83d9-174b1cea3a9c",
+      "name": "RYMTopAlbums",
+      "options": {
+        "background": "#000000",
+        "layout": "42",
+        "titled": true,
+        "numbered": false,
+        "collageRows": 5,
+        "collageCols": 5,
+        "padding": 2
+      },
+      "slots": [
+        {
+          "title": "To Pimp a Butterfly",
+          "artist": "Kendrick Lamar",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/86b35c4eb3c479da49c915d8771bbd1a.png",
+          "id": "5f07b420-6a04-4ef6-a2b1-df3dd0e2e429"
+        },
+        {
+          "title": "OK Computer",
+          "artist": "Radiohead",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/62d26c6cb4ac4bdccb8f3a2a0fd55421.png",
+          "id": "f86ad077-cc54-4ada-acc9-aa667e5320b5"
+        },
+        {
+          "title": "In Rainbows",
+          "artist": "Radiohead",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/9dbcd9399ac3e622b4f508323155b644.png",
+          "id": "9b83962c-cd90-49c3-bab5-a86b65b0a6d1"
+        },
+        {
+          "title": "Wish You Were Here",
+          "artist": "Pink Floyd",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/e19d2760d2c0cf4de9d2a68beda56efd.png",
+          "id": "e0f1f00f-de2e-42ef-ab0e-0c01b2ebea61"
+        },
+        {
+          "title": "In The Court Of The Crimson King",
+          "artist": "Crimson King",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/8351bb88f49143dfc38e28d4b6b65cf9.png",
+          "id": "124d656e-fe75-47a3-a293-bce7414343a0"
+        },
+        {
+          "title": "good kid maad city",
+          "artist": "Kendrick Lamar",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/8c6a38499a74968f378cdb8eef915800.png",
+          "id": "b37703fc-7b6e-403b-8a2f-4280369dbbb1"
+        },
+        {
+          "title": "The Dark Side of the Moon",
+          "artist": "Pink Floyd",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/d4bdd038cacbec705e269edb0fd38419.png",
+          "id": "a2a78b09-0617-4dc3-8c49-d28fb180ef87"
+        },
+        {
+          "title": "Madvillainy",
+          "artist": "Madvillain",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/893fce336634c600b2bab31de7bbc9bd.png",
+          "id": "1d72e098-365c-40c3-9899-606a21d7196f"
+        },
+        {
+          "title": "Kid A",
+          "artist": "Radiohead",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/2ed343318c844d19cd897ec67fad11c4.png",
+          "id": "20c0fea2-7e86-4d54-b41a-e2d555a56a20"
+        },
+        {
+          "title": "Loveless",
+          "artist": "my bloody valentine",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/510546e3b6df7504392274c528c77780.png",
+          "id": "5863390a-9504-4148-8df2-a0ceb72e0ed9"
+        },
+        {
+          "title": "Abbey Road",
+          "artist": "The Beatles",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/f304ba0296794c6fc9d0e1cccd194ed0.png",
+          "id": "fed6a19c-b646-48bd-a8c8-fc346aa6e3d2"
+        },
+        {
+          "title": "Remain in Light",
+          "artist": "Talking Heads",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/909484b931449e8fc2e4fecca90b7eb5.png",
+          "id": "dd564cf2-718b-4e5c-8006-169551b22576"
+        },
+        {
+          "title": "The Rise and Fall of Ziggy",
+          "artist": "David Bowie",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/99b14c51575b4231b465c25748a86653.png",
+          "id": "b77b69aa-1e3c-4be0-afc1-3355fd3cc980"
+        },
+        {
+          "title": "Lift Yr. Skinny Fists Like Antennas to Heaven!",
+          "artist": "Godspeed You! Black Emperor",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/a6c272f896b1579be7ea3dd566d00e77.png",
+          "id": "0647a043-06df-41c8-a99b-a50c9de3b0c7"
+        },
+        {
+          "title": "Revolver",
+          "artist": "The Beatles",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/21394faeb4c2e3696ac5c2bfb6e93672.png",
+          "id": "030f4c16-a562-4026-b660-54e0bbd12d86"
+        },
+        {
+          "title": "Illmatic",
+          "artist": "Nas",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/8dce63c224a643b78b39caeb27aadf8b.png",
+          "id": "f1b84029-c449-46f5-82f2-9ba32e77c412"
+        },
+        {
+          "title": "Paranoid",
+          "artist": "Black Sabbath",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/e88b3980787c4714b79c3cab44986595.png",
+          "id": "fee5dfbd-2eed-4d23-b710-ff13d9546b53"
+        },
+        {
+          "title": "Vespertine",
+          "artist": "Björk",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/07abbf9ec5a98dcf4978836a5953faff.png",
+          "id": "e2aba974-2e5d-470e-a255-eeaa4f2451b8"
+        },
+        {
+          "title": "Disintegration",
+          "artist": "The Cure",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/e0c6164f49f690f587a11468b026c873.png",
+          "id": "134c3bca-0af5-4fde-ab39-38543c99bc58"
+        },
+        {
+          "title": "The Black Saint and the Sinner Lady",
+          "artist": "Charles Mingus",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/1bc10681bd024639b45806f4ca797f2c.png",
+          "id": "216a4549-7651-40a2-9903-432a66d06e46"
+        },
+        {
+          "title": "A Love Supreme",
+          "artist": "John Coltrane",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/29555acae2ed44eea3882de43a606fd9.png",
+          "id": "384bf526-09b4-48d9-a09c-93566bdc2062"
+        },
+        {
+          "title": "Animals",
+          "artist": "Pink Floyd",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/903616162a8a4f1ca1ac63497e551c07.png",
+          "id": "6beed79f-8721-49f3-9112-0dce7d19bf84"
+        },
+        {
+          "title": "Heaven or Las Vegas",
+          "artist": "Cocteau Twins",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/350066babb80493fc9fa9b63dd40086d.png",
+          "id": "38677987-3634-4217-add0-2ec138817ce2"
+        },
+        {
+          "title": "Songs in the Key of Life",
+          "artist": "Stevie Wonder",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/02f18167ffe180e4a2f1c39594cfd94d.png",
+          "id": "62d4642c-d691-4601-aac2-fbbce94637b4"
+        },
+        {
+          "title": "Kind of Blue",
+          "artist": "Miles Davis",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/e345e60dfec207641798c02ae8071280.png",
+          "id": "67322522-05f8-4be9-833b-da766414a31d"
+        },
+        {
+          "title": "Pet Sounds",
+          "artist": "The Beach Boys",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/aa5372c785c9d4188cc32788cd914c04.png",
+          "id": "b853f1eb-7cfe-4f8d-8556-909a8f07d012"
+        },
+        {
+          "title": "Long Season",
+          "artist": "Fishmans",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/6bdce8a547e0003901a829ebce43183c.png",
+          "id": "f7d6eb73-69fb-4769-baad-24cdad839ed4"
+        },
+        {
+          "title": "IGOR",
+          "artist": "Tyler, The Creator",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/e150fa362c89b8f1d92d883ae828b7ef.png",
+          "id": "0d49e070-628b-4771-8b04-dc4643aceb18"
+        },
+        {
+          "title": "My Beautiful Dark Twisted Fantasy",
+          "artist": "Kanye West",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/8a071c4b073625018de5f0ac58727511.png",
+          "id": "ab31dec4-5715-4513-9697-64a56815090f"
+        },
+        {
+          "title": "College Dropout",
+          "artist": "Kanye West",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/14cdcd1c048f47af9643fa9d223ea500.png",
+          "id": "6ec0a166-4673-49ba-a3b9-2a115e4233b1"
+        },
+        {
+          "title": "Dummy",
+          "artist": "Portishead",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/29f72d0333df4193981b5ff16dd37df6.png",
+          "id": "2b52f277-a84b-4a31-80fa-83ca6806ca31"
+        },
+        {
+          "title": "Spiderland",
+          "artist": "Slint",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/9209ec34e3db43fba2f364b32b7b9853.png",
+          "id": "e8ce9d6c-82c4-4881-9ecd-b816de3d6e5f"
+        },
+        {
+          "title": "Enter The Wu-Tang",
+          "artist": "Wu-Tang Clan",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/1177fc915ce7bd5221d184a0675b4b88.png",
+          "id": "20af0ea8-4701-458b-ad2b-0d371b1fdf6f"
+        },
+        {
+          "title": "Pink Moon",
+          "artist": "Nick Drake",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/dc70139e0457a04d2749fe062647fc79.png",
+          "id": "a71e8765-cc63-4ad5-be3d-afa0da173c3b"
+        },
+        {
+          "title": "The Money Store",
+          "artist": "Death Grips",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/30ef0d3d35720910529fe026a2d2fe7c.png",
+          "id": "c86de483-fa45-4464-8437-217a830b000d"
+        },
+        {
+          "title": "In the Aeroplane Over the Sea",
+          "artist": "Neutral Milk Hotel",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/d95051e07a714889c8f7fbbccf61bf8b.png",
+          "id": "28851afa-9683-4c9d-839f-49ff634dc3b1"
+        },
+        {
+          "title": "Souvlaki",
+          "artist": "Slowdive",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/306e566d3bb7cce540dd41d7e6811556.png",
+          "id": "897f241b-0961-4ec3-8284-338b039888f8"
+        },
+        {
+          "title": "The Queen Is Dead",
+          "artist": "The Smiths",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/fac0b27adf403efed8b368d3a236ab61.png",
+          "id": "7db16493-2e54-4ec8-bfd9-dbe441e0d97f"
+        },
+        {
+          "title": "Sgt Peppers",
+          "artist": "The Beatles",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/12b72426efb615e9126d3cdba2e6a9ea.png",
+          "id": "405266f8-169c-4d19-a1ae-bce2196129b6"
+        },
+        {
+          "title": "The Glow, Pt. 2",
+          "artist": "The Microphones",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/7ad8d224161a6d15ff35ecbe1dfdf78b.png",
+          "id": "bb24cc32-3387-4626-a61e-7731fa998788"
+        },
+        {
+          "title": "Discovery",
+          "artist": "Daft Punk",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/59a07cf69f065c538cdddb0552be891b.png",
+          "id": "cd9823d2-1d09-42ed-8a9a-9e549d9fc7cd"
+        },
+        {
+          "title": "What's Going On",
+          "artist": "Marvin Gaye",
+          "imageUrl": "https://lastfm-img.freetls.fastly.net/i/u/300x300/8700ee8059d6cfaaf50e0bbf090d6e34.png",
+          "id": "907b83d6-644f-4e59-9031-c21b43dfb373"
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    }
+  ]
+}

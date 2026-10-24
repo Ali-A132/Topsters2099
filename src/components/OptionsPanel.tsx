@@ -27,6 +27,7 @@ export default function OptionsPanel({ options, onChange }: Props) {
                     <label>
                         Rows{' '}
                         <input
+                            style={{ width: '100px', height: '1px' }}
                             type="range"
                             min={1}
                             max={COLLAGE_MAX}
@@ -38,6 +39,7 @@ export default function OptionsPanel({ options, onChange }: Props) {
                     <label>
                         Columns{' '}
                         <input
+                            style={{ width: '100px', height: '1px'}}
                             type="range"
                             min={1}
                             max={COLLAGE_MAX}

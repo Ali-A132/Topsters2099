@@ -1,15 +1,16 @@
 import type { ChartOptions } from '../types';
 
 export interface RowSpec {
-    size: number; 
+    size: number;
     count: number;
 }
 
 export interface Layout {
     id: string;
     label: string;
-    width: number; 
+    width: number;
     rows: RowSpec[];
+    uniformGaps?: boolean;
     sectionPerRow?: boolean;
 }
 
@@ -31,11 +32,11 @@ export const LAYOUTS: Record<string, Layout> = {
 export const DEFAULT_LAYOUT = '42';
 
 export const COLLAGE_ID = 'collage';
-export const COLLAGE_MAX = 12;
-export const PADDING_MAX = 20;
+export const COLLAGE_MAX = 12; 
+export const PADDING_MAX = 20; 
 const COLLAGE_MAX_COVER = 150;
 
-export const MAX_SLOTS = COLLAGE_MAX * COLLAGE_MAX;
+export const MAX_SLOTS = COLLAGE_MAX * COLLAGE_MAX; 
 
 const clamp = (n: number) => Math.min(COLLAGE_MAX, Math.max(1, Math.round(n) || 1));
 
@@ -43,7 +44,7 @@ export function makeCollage(rows: number, cols: number): Layout {
     const r = clamp(rows);
     const c = clamp(cols);
     const size = Math.min(COLLAGE_MAX_COVER, Math.floor(WIDTH / c) - 4);
-    return { id: COLLAGE_ID, label: 'Collage', width: c * (size + 4), rows: repeat(r, size, c), sectionPerRow: true };
+    return { id: COLLAGE_ID, label: 'Collage', width: c * (size + 4), rows: repeat(r, size, c), sectionPerRow: true, uniformGaps: true };
 }
 
 export const LAYOUT_CHOICES = [

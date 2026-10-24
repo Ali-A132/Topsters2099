@@ -4,11 +4,12 @@ import type { Album, ChartData, ChartOptions, Slot } from '../types';
 import { newId } from './utils';
 
 const KEY = 'topsters-clone:charts:v2';
-const LEGACY_KEY = 'topsters-clone:chart:v1';
+const LEGACY_KEY = 'topsters-clone:chart:v1'; 
 
 export interface SavedState {
     charts: ChartData[];
     activeId: string;
+    seeded?: boolean;
 }
 
 interface RawChart {
@@ -87,7 +88,7 @@ export function loadState(): SavedState | null {
                 .filter((c): c is ChartData => c !== null);
             if (charts.length) {
                 const activeId = charts.some((c) => c.id === data.activeId) ? data.activeId : charts[0].id;
-                return { charts, activeId };
+                return { charts, activeId, seeded: data.seeded === true };
             }
         }
 
@@ -105,14 +106,14 @@ export function loadState(): SavedState | null {
 export function saveState(state: SavedState): boolean {
     try {
         localStorage.setItem(KEY, JSON.stringify(state));
-        localStorage.removeItem(LEGACY_KEY);
+        localStorage.removeItem(LEGACY_KEY); 
         return true;
     } catch {
         return false;
     }
 }
 
-const MAX_BACKUP_CHARS = 25_000_000;
+const MAX_BACKUP_CHARS = 25_000_000; 
 
 export function makeBackup(charts: ChartData[]): string {
     return JSON.stringify(
@@ -120,6 +121,17 @@ export function makeBackup(charts: ChartData[]): string {
         null,
         2,
     );
+}
+
+export function readBackupData(data: unknown): { charts: ChartData[]; skipped: number } {
+    const d = data as ({ charts?: unknown } & RawChart) | null;
+    const list: RawChart[] = Array.isArray(d?.charts) ? d.charts : d?.options ? [d] : [];
+
+    const charts = list
+        .map((c, i) => sanitizeChart(c, `Restored Chart ${i + 1}`))
+        .filter((c): c is ChartData => c !== null);
+    if (!charts.length) throw new Error("No charts found in that file. Is it a backup made with this app?");
+    return { charts, skipped: list.length - charts.length };
 }
 
 export function parseBackup(text: string): { charts: ChartData[]; skipped: number } {
@@ -131,13 +143,5 @@ export function parseBackup(text: string): { charts: ChartData[]; skipped: numbe
     } catch {
         throw new Error("That file isn't valid JSON.");
     }
-
-    const d = data as ({ charts?: unknown } & RawChart) | null;
-    const list: RawChart[] = Array.isArray(d?.charts) ? d.charts : d?.options ? [d] : [];
-
-    const charts = list
-        .map((c, i) => sanitizeChart(c, `Restored Chart ${i + 1}`))
-        .filter((c): c is ChartData => c !== null);
-    if (!charts.length) throw new Error("No charts found in that file. Is it a backup made with this app?");
-    return { charts, skipped: list.length - charts.length };
+    return readBackupData(data);
 }

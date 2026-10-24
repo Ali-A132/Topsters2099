@@ -24,7 +24,13 @@ function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: numb
     ctx.drawImage(img, (img.naturalWidth - sw) / 2, (img.naturalHeight - sh) / 2, sw, sh, x, y, w, h);
 }
 
-export async function exportChartAsJpg(wrapper: HTMLElement, chartName: string): Promise<void> {
+export type ExportFormat = 'jpg' | 'png';
+
+export async function exportChart(
+    wrapper: HTMLElement,
+    chartName: string,
+    format: ExportFormat = 'jpg',
+): Promise<void> {
     const box = wrapper.getBoundingClientRect();
     const cssScale = box.width / wrapper.offsetWidth || 1;
     const local = (r: DOMRect) => ({
@@ -124,7 +130,8 @@ export async function exportChartAsJpg(wrapper: HTMLElement, chartName: string):
         drawTitle(li, BELOW_PAD, height + BELOW_PAD + (r.top - belowTop) + r.height / 2, 1);
     });
 
-    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY));
-    if (!blob) throw new Error('Could not create the JPG.');
-    downloadBlob(blob, `${safeFileName(chartName)}.jpg`);
+    const mime = format === 'png' ? 'image/png' : 'image/jpeg';
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, mime, JPEG_QUALITY));
+    if (!blob) throw new Error(`Could not create the ${format.toUpperCase()}.`);
+    downloadBlob(blob, `${safeFileName(chartName)}.${format}`);
 }
