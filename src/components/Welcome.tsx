@@ -19,8 +19,8 @@ export default function Welcome() {
                     </li>
                     <li>
                         {mobile
-                            ? 'At the end of every search result, there is a checkered square. Tap it to remove the last album from your chart.'
-                            : 'At the end of every search result, there is a checkered square to drag over and remove albums.'}
+                            ? 'At the end of every search result, there is a transparent tile. Tap it to remove the last album from your chart.'
+                            : 'At the end of every search result, there is a transparent tile to drag over and remove albums.'}
                     </li>
                     <li>{mobile ? 'Tap "Show Options" to customize your collage.' : 'Click "Show Options" to customize your collage.'}</li>
                     <li>Download your collage in your desired format using the buttons in the top right corner.</li>
