@@ -4,6 +4,7 @@ import { newId } from './utils';
 
 export const DEFAULT_OPTIONS: ChartOptions = {
     background: '#000000',
+    backgroundImage: null,
     layout: DEFAULT_LAYOUT,
     titled: false,
     numbered: false,

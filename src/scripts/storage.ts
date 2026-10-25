@@ -17,6 +17,7 @@ interface RawChart {
     name?: unknown;
     options?: {
         background?: unknown;
+        backgroundImage?: unknown;
         layout?: unknown;
         titled?: unknown;
         numbered?: unknown;
@@ -44,6 +45,11 @@ const toPadding = (v: unknown) =>
         ? Math.min(PADDING_MAX, Math.max(0, Math.round(v)))
         : DEFAULT_OPTIONS.padding;
 
+const MAX_BACKGROUND_CHARS = 3_000_000;
+
+const toBackgroundImage = (v: unknown): string | null =>
+    typeof v === 'string' && v.startsWith('data:image/') && v.length <= MAX_BACKGROUND_CHARS ? v : null;
+
 const toCollageSize = (v: unknown, fallback: number) =>
     typeof v === 'number' && Number.isFinite(v) ? Math.min(COLLAGE_MAX, Math.max(1, Math.round(v))) : fallback;
 
@@ -58,6 +64,7 @@ function sanitizeChart(raw: RawChart | null | undefined, fallbackName: string): 
 
     const options: ChartOptions = {
         background: typeof o.background === 'string' ? o.background : DEFAULT_OPTIONS.background,
+        backgroundImage: toBackgroundImage(o.backgroundImage),
         layout,
         titled: !!o.titled,
         numbered: !!o.numbered,
@@ -99,7 +106,7 @@ export function loadState(): SavedState | null {
         }
         return null;
     } catch {
-        return null;
+        return null; 
     }
 }
 
@@ -113,7 +120,7 @@ export function saveState(state: SavedState): boolean {
     }
 }
 
-const MAX_BACKUP_CHARS = 25_000_000; 
+const MAX_BACKUP_CHARS = 25_000_000;
 
 export function makeBackup(charts: ChartData[]): string {
     return JSON.stringify(

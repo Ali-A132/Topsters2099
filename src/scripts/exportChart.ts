@@ -83,9 +83,13 @@ export async function exportChart(
     ctx.scale(EXPORT_SCALE, EXPORT_SCALE);
     ctx.imageSmoothingQuality = 'high';
 
-    const bg = getComputedStyle(wrapper).backgroundColor;
+    const bg = getComputedStyle(wrapper).backgroundColor; 
     ctx.fillStyle = isTransparent(bg) ? '#000000' : bg;
     ctx.fillRect(0, 0, width, height + belowHeight);
+
+    const backgroundUrl = parseCssUrl(getComputedStyle(wrapper).backgroundImage);
+    const backgroundImage = backgroundUrl ? await loadImage(backgroundUrl).catch(() => null) : null;
+    if (backgroundImage) drawCover(ctx, backgroundImage, 0, 0, width, height);
 
     for (const t of tiles) {
         if (!isTransparent(t.cardBg)) {

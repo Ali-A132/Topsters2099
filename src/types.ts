@@ -10,12 +10,13 @@ export type Slot = Album | null;
 
 export interface ChartOptions {
     background: string;
+    backgroundImage: string | null;
     layout: string;
     titled: boolean;
     numbered: boolean;
     collageRows: number;
-    collageCols: number;
-    padding: number;
+    collageCols: number; 
+    padding: number; 
 }
 
 export type AlbumData = Omit<Album, 'id'>;

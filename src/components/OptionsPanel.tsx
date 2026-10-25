@@ -1,3 +1,5 @@
+import { useRef } from 'react';
+import { readImageFile } from '../scripts/externalImage';
 import { COLLAGE_ID, COLLAGE_MAX, LAYOUT_CHOICES, PADDING_MAX } from '../scripts/layouts';
 import type { ChartOptions } from '../types';
 
@@ -9,6 +11,16 @@ interface Props {
 export default function OptionsPanel({ options, onChange }: Props) {
     const set = <K extends keyof ChartOptions>(key: K, value: ChartOptions[K]) =>
         onChange({ ...options, [key]: value });
+
+    const fileInput = useRef<HTMLInputElement>(null);
+
+    const uploadBackground = async (file: File) => {
+        try {
+            set('backgroundImage', await readImageFile(file, 1600));
+        } catch (err) {
+            window.alert((err as Error).message);
+        }
+    };
 
     return (
         <div id="options">
@@ -27,7 +39,7 @@ export default function OptionsPanel({ options, onChange }: Props) {
                     <label>
                         Rows{' '}
                         <input
-                            style={{ width: '100px', height: '1px' }}
+                            style={{height: '1px'}}
                             type="range"
                             min={1}
                             max={COLLAGE_MAX}
@@ -39,7 +51,7 @@ export default function OptionsPanel({ options, onChange }: Props) {
                     <label>
                         Columns{' '}
                         <input
-                            style={{ width: '100px', height: '1px'}}
+                            style={{height: '1px'}}
                             type="range"
                             min={1}
                             max={COLLAGE_MAX}
@@ -52,7 +64,8 @@ export default function OptionsPanel({ options, onChange }: Props) {
             )}
             <label>
                 Padding{' '}
-                <input style={{ width: '100px', height: '1px' }}
+                <input
+                    style={{height: '1px'}}
                     type="range"
                     min={0}
                     max={PADDING_MAX}
@@ -62,7 +75,7 @@ export default function OptionsPanel({ options, onChange }: Props) {
                 {options.padding}
             </label>
             <label>
-                Background{' '}
+                Background Colour{' '}
                 <input
                     className="colour-input"
                     type="color"
@@ -70,6 +83,31 @@ export default function OptionsPanel({ options, onChange }: Props) {
                     onChange={(e) => set('background', e.target.value)}
                 />
             </label>
+            <div>
+                Upload Backdrop{' '}
+                <button style = {{height: '25px'}} type="button" onClick={() => fileInput.current?.click()}>
+                    {options.backgroundImage ? 'Change' : 'Browse'}
+                </button>
+                {options.backgroundImage && (
+                    <>
+                        {' '}
+                        <button type="button" onClick={() => set('backgroundImage', null)}>
+                            Remove
+                        </button>
+                    </>
+                )}
+                <input
+                    ref={fileInput}
+                    type="file"
+                    accept="image/*"
+                    hidden
+                    onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        e.target.value = '';
+                        if (file) void uploadBackground(file);
+                    }}
+                />
+            </div>
             <label>
                 <input
                     type="checkbox"

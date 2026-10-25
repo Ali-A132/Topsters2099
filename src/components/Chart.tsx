@@ -16,12 +16,12 @@ interface Props {
     options: ChartOptions;
     onMove: (from: number, to: number) => void; 
     onPlace: (index: number, album: AlbumData | null) => void; 
-    onPlaceExternal: (index: number, payload: DropPayload) => void; 
+    onPlaceExternal: (index: number, payload: DropPayload) => void;
     onRenameAlbum: (id: string, title: string) => void; 
 }
 
 interface DragState {
-    from: number;
+    from: number; 
     over: number; 
 }
 
@@ -35,7 +35,7 @@ interface CardProps {
     onPointerDown: (e: ReactPointerEvent<HTMLElement>) => void;
     ghost?: boolean; 
     hidden?: boolean; 
-    target?: boolean;
+    target?: boolean; 
     onDragStart: (e: DragEvent) => void;
     onDragOver: (e: DragEvent) => void;
     onDragEnd: (e: DragEvent) => void;
@@ -77,10 +77,10 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
     const [editingId, setEditingId] = useState<string | null>(null);
 
     const touchMode = useMediaQuery('(pointer: coarse)');
-    const isMobile = useMediaQuery('(max-width: 800px)');
+    const isMobile = useMediaQuery('(max-width: 800px)'); 
     const pointer = useRef<{
         from: number; 
-        over: number; 
+        over: number;
         id: number; 
         x0: number;
         y0: number;
@@ -89,7 +89,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
         active: boolean; 
     } | null>(null);
     const [float, setFloat] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
-    const floatRef = useRef<HTMLDivElement>(null); 
+    const floatRef = useRef<HTMLDivElement>(null);
     const [overTrash, setOverTrash] = useState(false);
 
     useEffect(() => {
@@ -171,7 +171,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
     const shown = drag ? moveItem(slots, drag.from, drag.over) : slots;
 
     const startPointerDrag = (e: ReactPointerEvent<HTMLElement>, index: number) => {
-        if (!touchMode || e.pointerType === 'mouse' || pointer.current) return; 
+        if (!touchMode || e.pointerType === 'mouse' || pointer.current) return;
         const touched = e.target as Element;
         if (touched.hasPointerCapture?.(e.pointerId)) touched.releasePointerCapture(e.pointerId);
         const rect = (e.currentTarget.closest('.card') ?? e.currentTarget).getBoundingClientRect();
@@ -273,7 +273,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                                     border: 0,
                                     outline: 'none',
                                     boxSizing: 'border-box',
-                                    height: `${titleLine}px`,
+                                    height: `${titleLine}px`, 
                                     width: '16em',
                                     padding: 0,
                                     margin: 0,
@@ -304,7 +304,18 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
             <div
                 id="chart-wrapper"
                 className={`container-${layout.id}`}
-                style={{ background: options.background, fontFamily: 'monospace, sans-serif', flex: 'none' }}
+                style={{
+                    backgroundColor: options.background,
+                    ...(options.backgroundImage
+                        ? {
+                              backgroundImage: `url(${JSON.stringify(options.backgroundImage)})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                          }
+                        : {}),
+                    fontFamily: 'monospace, sans-serif',
+                    flex: 'none',
+                }}
             >
                 <div
                     id="chart"
@@ -313,7 +324,7 @@ export default function Chart({ layout, slots, options, onMove, onPlace, onPlace
                     onDragOver={(e) => {
                         const external = fromRef.current === null && isExternalDrag(e);
                         if (fromRef.current === null && !external) return;
-                        e.preventDefault();
+                        e.preventDefault(); 
                         const types = e.dataTransfer.types;
                         if (fromRef.current !== null) e.dataTransfer.dropEffect = 'move';
                         else if (types.includes(ALBUM_MIME) || types.includes(ERASE_MIME)) e.dataTransfer.dropEffect = 'copy';

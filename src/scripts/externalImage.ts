@@ -21,7 +21,7 @@ export function readDropPayload(dt: DataTransfer): DropPayload | null {
 function normalizeUrl(raw: string): string {
     let url = raw.trim();
     if (url.startsWith('//')) url = `https:${url}`;
-    if (url.startsWith('http://')) url = `https://${url.slice('http://'.length)}`;
+    if (url.startsWith('http://')) url = `https://${url.slice('http://'.length)}`; 
     if (url.startsWith('https://') || url.startsWith('data:image/')) return url;
     throw new Error("That doesn't look like an image link.");
 }
@@ -29,17 +29,17 @@ function normalizeUrl(raw: string): string {
 function loadImage(src: string, cors: boolean): Promise<HTMLImageElement> {
     return new Promise((resolve, reject) => {
         const img = new Image();
-        if (cors) img.crossOrigin = 'anonymous';
+        if (cors) img.crossOrigin = 'anonymous'; 
         img.onload = () => resolve(img);
         img.onerror = () => reject(new Error('image failed to load'));
         img.src = src;
     });
 }
 
-function toDataUrl(img: HTMLImageElement): string {
-    const nw = img.naturalWidth || MAX_SIDE;
-    const nh = img.naturalHeight || MAX_SIDE;
-    const scale = Math.min(1, MAX_SIDE / Math.max(nw, nh));
+function toDataUrl(img: HTMLImageElement, maxSide = MAX_SIDE): string {
+    const nw = img.naturalWidth || maxSide;
+    const nh = img.naturalHeight || maxSide;
+    const scale = Math.min(1, maxSide / Math.max(nw, nh));
     const w = Math.max(1, Math.round(nw * scale));
     const h = Math.max(1, Math.round(nh * scale));
 
@@ -48,7 +48,7 @@ function toDataUrl(img: HTMLImageElement): string {
     canvas.height = h;
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Your browser could not process that image.');
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = '#fff'; 
     ctx.fillRect(0, 0, w, h);
     ctx.drawImage(img, 0, 0, w, h);
     return canvas.toDataURL('image/jpeg', 0.85);
@@ -72,9 +72,24 @@ export async function resolveDroppedImage(payload: DropPayload): Promise<string>
     } catch {
     }
     try {
-        await loadImage(url, false);
+        await loadImage(url, false); 
         return url;
     } catch {
         throw new Error("Couldn't load that image.");
+    }
+}
+
+const MAX_FILE_BYTES = 20 * 1024 * 1024;
+
+export async function readImageFile(file: File, maxSide: number): Promise<string> {
+    if (!file.type.startsWith('image/')) throw new Error('Please choose an image file.');
+    if (file.size > MAX_FILE_BYTES) throw new Error('That image is too large (20 MB max).');
+    const objectUrl = URL.createObjectURL(file);
+    try {
+        return toDataUrl(await loadImage(objectUrl, false), maxSide);
+    } catch {
+        throw new Error("Couldn't read that image file.");
+    } finally {
+        URL.revokeObjectURL(objectUrl);
     }
 }
