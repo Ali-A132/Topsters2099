@@ -91,7 +91,7 @@ export default function OptionsPanel({ options, onChange }: Props) {
                 {options.backgroundImage && (
                     <>
                         {' '}
-                        <button type="button" onClick={() => set('backgroundImage', null)}>
+                        <button type="button" style = {{height: '25px'}} onClick={() => set('backgroundImage', null)}>
                             Remove
                         </button>
                     </>
